@@ -13,7 +13,7 @@
   		  <tr>
           <td>
             <%= link_to user_path(@user) do %>
-              <%= image_tag @user.get_profile_image(100,100) %><br>
+              <%= image_tag @user.get_profile_image(50,50) %><br>
               <%= @user.name %>
             <% end %>
           </td>
@@ -25,11 +25,11 @@
             <% end %>
           </td>
           <td><%= @book.body %></td>
-          <td>
+          <td id="favorite_btn_<%= @book.id %>">
             <%= render 'favorites/favorite', book: @book %>
           </td>
-          <td>
-            コメント数：<%= @book.book_comments.count %>
+          <td id="comment_counter">
+            <%= render "book_comments/counter", book: @book %>
           </td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
@@ -37,7 +37,9 @@
           <% end %>
         </tr>
       </table>
-      <%= render "book_comments/index", book: @book %>
+      <div id="comment_index">
+        <%= render "book_comments/index", book: @book %>
+      </div>
       <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
     </div>
   </div>
